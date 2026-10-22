@@ -1,11 +1,12 @@
 # Geldium Delinquency Risk: GenAI-Assisted Exploratory Data Analysis
 
-**Tata GenAI-Powered Data Analytics Job Simulation (Forage) · Task 1**
+**Tata GenAI-Powered Data Analytics Job Simulation (Forage) ·
+Task 1**
 Lexi Loughlin · M.S. Business Analytics, SMU Cox
 
 ## The business problem
 
-Geldium, a financial services firm, wants to predict which credit card customers will become delinquent so its collections team can step in early. Before a model can be built, the data has to be trustworthy and the real risk signals have to be separated from noise. This project audits a 500-customer dataset, cleans it, and tests which variables actually predict delinquency.
+Geldium, a financial services firm, wants to predict which credit card customers will become delinquent so its collections team can step in early. Before a model can be built, the data has to be trustworthy, and the real risk signals have to be separated from noise. This project audits a 500-customer dataset, cleans it, and tests which variables actually predict delinquency.
 
 ## Key findings
 
@@ -15,17 +16,17 @@ Only 70 of 9,500 cells are missing (Income 39, Loan_Balance 29, Credit_Score 2),
 ![Missing values](reports/figures/missing_values.png)
 
 **2. No variable reaches even a weak correlation with delinquency.**
-Every correlation is below 0.05. Missed payments, income and credit score all point the *wrong* way: delinquent customers missed slightly fewer payments, earned more and had higher scores.
+Every correlation is below 0.05. Missed payments, income, and credit score all point the *wrong* way: delinquent customers missed slightly fewer payments, earned more, and had higher scores.
 
 ![Correlations](reports/figures/correlations.png)
 
 **3. Some segments run 3 to 5 points above the 16% average, but none is statistically significant.**
-Business card holders (21.3%), new accounts (20.8%), Los Angeles (19.6%) and unemployed customers (19.4%) are the leads worth testing in a model.
+Business card holders (21.3%), new accounts (20.8%), Los Angeles (19.6%), and unemployed customers (19.4%) are the best leads to test in a model.
 
 ![Segment delinquency rates](reports/figures/segment_rates.png)
 
 **4. A leak-free baseline model confirms the weak signal.**
-Logistic regression with SMOTE applied *inside* each training fold scores a cross-validated AUC of **0.49**, the same as random guessing. The recommendation is to fix the payment data and engineer combined features before tuning models.
+Logistic regression with SMOTE applied *inside* each training fold scores a cross-validated AUC of **0.49**, the same as random guessing. I recommend fixing the payment data and engineering combined features before tuning models.
 
 ## Recommended features for Task 2
 
@@ -38,10 +39,10 @@ Logistic regression with SMOTE applied *inside* each training fold scores a cros
 ## Methods
 
 - **Missing data:** income imputed with the median of each employment group; loan balance and credit score with the overall median. All 500 records were kept.
-- **Feature engineering:** over-limit flag, late/missed/on-time counts from the six-month history, a consistency score and a recent-deterioration flag.
+- **Feature engineering:** over-limit flag, late/missed/on-time counts from the six-month history, a consistency score, and a recent-deterioration flag.
 - **Testing:** Pearson correlation and Mann-Whitney tests for numeric variables; chi-square tests for categorical segments.
 - **Class imbalance (16% delinquent):** SMOTE is applied only to training folds, never to the full dataset, so synthetic rows can't leak into evaluation.
-- **GenAI use:** GenAI was used to profile the data, suggest imputation methods and draft code. Every AI-generated claim was re-checked against the data. That check overturned its first ranking, which had named missed payments as the top predictor based on industry convention.
+- **GenAI use:** GenAI was used to profile the data, suggest imputation methods, and draft code. I rechecked every AI-generated claim against the data. That check overturned its first ranking, which had named missed payments as the top predictor based on industry convention.
 
 ## Repository structure
 
